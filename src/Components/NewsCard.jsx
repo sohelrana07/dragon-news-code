@@ -7,11 +7,20 @@ import {
   FaBookmark, // Filled bookmark (saved)
   FaShareAlt, // Share icon
 } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
   // Destructure the news data
-  const { title, author, thumbnail_url, details, rating, total_view, tags } =
-    news;
+  const {
+    id,
+    title,
+    author,
+    thumbnail_url,
+    details,
+    rating,
+    total_view,
+    tags,
+  } = news;
 
   // State to handle bookmark toggle (true = saved)
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -79,13 +88,18 @@ const NewsCard = ({ news }) => {
         </figure>
 
         {/* News details (short text) */}
-        <p className="text-sm text-gray-600 mt-3 line-clamp-4 text-justify">{details}</p>
+        <p className="text-sm text-gray-600 mt-3 line-clamp-4 text-justify">
+          {details}
+        </p>
 
         {/* Read More button (gold text, left side) */}
         <div className="mt-2 text-left">
-          <button className="text-yellow-500 font-medium hover:underline">
+          <Link
+            to={`/news-details/${id}`}
+            className="text-yellow-500 font-medium hover:underline"
+          >
             Read More
-          </button>
+          </Link>
         </div>
       </div>
 

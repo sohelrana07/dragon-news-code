@@ -3,10 +3,14 @@ import Header from "../Components/Header";
 import LatestNews from "../Components/LatestNews";
 import Navbar from "../Components/Navbar";
 import LeftAside from "../Components/HomeLayout/LeftAside";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import RightAside from "../Components/HomeLayout/RightAside";
+import { ToastContainer } from "react-toastify";
+import Loading from "../Components/Loading";
 
 const HomeLayout = () => {
+  const { state } = useNavigation();
+
   return (
     <div>
       <header className="mt-14">
@@ -25,13 +29,25 @@ const HomeLayout = () => {
         </aside>
         {/* dynamic Pages */}
         <section className="main col-span-6">
-          <Outlet></Outlet>
+          {state === "loading" ? <Loading /> : <Outlet></Outlet>}
         </section>
         {/* Right side */}
         <aside className="col-span-3 h-fit sticky top-5">
           <RightAside></RightAside>
         </aside>
       </main>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
